@@ -1,0 +1,51 @@
+<main id="site-main">
+    <div class="w3-container">
+        <div class="w3-white w3-margin-top">
+            <a href="/" class="w3-btn w3-green w3-round-medium">
+                <span><i class="fa fa-angle-double-left"></i> Kembali</span>
+            </a>
+        </div>
+
+        <div class="w3-container">
+            <h2 class="w3-center">BELI OBAT</h2>
+            <table id="table-add" class="w3-table-all w3-margin-bottom display">
+                <thead>
+                    <tr class="w3-amber">
+                        <th>No.</th>
+                        <th>Kode</th>
+                        <th>Nama</th>
+                        <th>Gol.</th>
+                        <th>Jumlah</th>
+                        <th>Harga</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%- include('include/_table-add') %> 
+                </tbody>
+            </table>
+
+            <div>
+                <button onclick="$('#modal-add').show()" class="w3-btn w3-left w3-green"><i class="fa-solid fa-add"></i> Tambah List Obat</button>
+                <button onclick="" class="w3-btn w3-right w3-green">Beli Obat <i class="fa-solid fa-prescription-bottle-medical"></i></button>
+            </div>
+
+            <div id="modal-add" class="w3-modal">
+                <%- include('include/_form-add') %> 
+            </div>
+
+            <div id="modal-update" class="w3-modal">
+                <%- include('include/_form-update') %> 
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    $(document).ready(function () {
+        $('#table-add').DataTable({
+            paging: false,
+            info: false
+        });
+    });
+</script>

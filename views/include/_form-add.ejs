@@ -1,0 +1,98 @@
+<div class="w3-modal-content w3-animate-zoom w3-card-4 w3-round-large">
+    <header class="w3-container"> 
+        <span onclick="$('#modal-add').hide()" 
+        class="w3-button w3-display-topright">&times;</span>
+        <h2>Tambah List Obat</h2>
+    </header>
+    <div class="w3-container">
+        <div class="w3-panel w3-pale-green w3-round-large">
+            <p>Tambah list obat baru dengan mengisi formulir berikut!</p>
+        </div>
+        <form action="/stock" method="post" class="w3-panel" id="form-add">
+            <select class="w3-select w3-margin-bottom" name="pabrik" id="pabrik">
+                <option value="" disabled selected>Pilih Pabrik Farmasi</option>
+                <% let listPabrik = []; for(let i = 0; i < produsens.length; i++) { let namaPabrik = produsens[i].pabrik; if(!listPabrik.includes(namaPabrik)) { %>
+                    <option value="<%= namaPabrik %>"><%= namaPabrik %></option>
+                <% listPabrik.push(namaPabrik); } } %>
+            </select>
+            <select class="w3-select w3-margin-bottom" name="gol" id="gol">
+                <option value="" disabled selected>Pilih Golongan Obat</option>
+            </select>
+            <select class="w3-select w3-margin-bottom" name="satuan" id="satuan">
+                <option value="" disabled selected>Pilih Satuan Obat</option>
+            </select>
+            <select class="w3-select w3-margin-bottom" name="nama" id="nama">
+                <option value="" disabled selected>Pilih Obat</option>
+            </select>
+            <label>Jumlah Beli</label>
+            <input class="w3-input" type="number" value="1" name="jumlah" id="jumlah" min="1">
+            <label>Harga</label>
+            <input class="w3-input" type="number" value="0" name="harga" id="harga" readonly>
+            <label>Tanggal Kadaluarsa</label>
+            <input class="w3-input" type="text" value="0" name="exp" id="exp" readonly>
+            <label>Kode</label>
+            <input class="w3-input" type="text" value="0" name="kode" id="kode" readonly>
+            <button type="submit" class="w3-btn w3-margin-top w3-margin-bottom w3-green">Beli</button>
+        </form>
+    </div>
+</div>
+
+<script>
+let pabrik = '';
+$('#pabrik').change(function () {
+    pabrik = $(this).val();
+    $.ajax({
+        type:'POST',
+        url: 'http://localhost:3000/produsen/' + pabrik,
+        success: function(res) {
+            $('#gol').html(res);
+        }
+    })
+});
+
+let gol = '';
+$('#gol').change(function () {
+    gol = $(this).val();
+    $.ajax({
+        type:'POST',
+        url: 'http://localhost:3000/produsen/pabrik/' + pabrik + '_' + gol,
+        success: function(res) {
+            $('#satuan').html(res);
+        }
+    })
+});
+
+let satuan = '';
+$('#satuan').change(function () {
+    satuan = $(this).val();
+    $.ajax({
+        type:'POST',
+        url: 'http://localhost:3000/produsen/gol/' + pabrik + '_' + gol + '_' + satuan,
+        success: function(res) {
+            $('#nama').html(res);
+        }
+    })
+});
+
+let nama = '';
+let harga = 0;
+$('#nama').change(function () {
+    nama = $(this).val();
+    $.ajax({
+        type:'POST',
+        url: 'http://localhost:3000/produsen/satuan/' + pabrik + '_' + gol + '_' + satuan + '_' + nama,
+        success: function(res) {
+            harga = res.harga;
+            $('#harga').val(harga);
+            $('#kode').val(res.kode);
+            $('#exp').val(res.exp);
+        }
+    })
+});
+
+let jumlah = '';
+$('#jumlah').change(function () {
+    jumlah = $(this).val();
+    $('#harga').val(jumlah * harga);
+});
+</script>

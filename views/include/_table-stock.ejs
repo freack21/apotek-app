@@ -1,0 +1,13 @@
+<% let i = 1; stocks.forEach(stock => { %>
+    <tr>
+        <td></td>
+        <td><%= stock.kode %></td>
+        <td><%= stock.nama %></td>
+        <td><%= stock.gol %></td>
+        <td><%= stock.jumlah %></td>
+        <td><%= stock.satuan %></td>
+        <td><%= stock.exp %></td>
+        <td><%= stock.pabrik %></td>
+        <td class="money"><%= stock.harga %></td>
+    </tr>
+<% }); %>

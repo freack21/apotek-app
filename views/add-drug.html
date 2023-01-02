@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <title>Beli Obat</title>
+    <!-- <style>
+        #id01 {
+            display: block;
+        }
+    </style> -->
+</head>
+<body>
+<!-- Header -->
+<header id="header">
+    <div class="w3-black w3-xxlarge w3-border w3-border-gray">
+        <a href="/" class="w3-tag w3-padding">Tambah Stok Obat</a>
+    </div>
+</header>
+<!-- Header -->
+
+<!-- main site -->
+<main id="site-main">
+    <div class="w3-container">
+        <div class="w3-white w3-margin-top">
+            <a href="/" class="w3-btn w3-green w3-round-medium">
+                <span><i class="fa fa-angle-double-left"></i> Kembali</span>
+            </a>
+        </div>
+
+        <div class="w3-container w3-margin">
+            <h2 class="w3-center">BELI OBAT</h2>
+            <table id="table-add" class="w3-table-all w3-hoverable w3-margin-bottom display">
+                <thead>
+                    <tr class="w3-amber">
+                        <th>No.</th>
+                        <th>Kode</th>
+                        <th>Nama</th>
+                        <th>Gol.</th>
+                        <th>Jumlah</th>
+                        <th>Harga</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>SS11</td>
+                        <td>Salep Sakit 11</td>
+                        <td>Keras</td>
+                        <td>1</td>
+                        <td>12000</td>
+                        <td>
+                            <a href="#" title="Edit"><i class="fa-solid fa-pencil"></i></a> |
+                            <a href="#" title="Hapus"><i class="fa-solid fa-trash"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div>
+                <button onclick="$('#id01').show()" class="w3-button w3-left w3-green"><i class="fa-solid fa-add"></i> Tambah List Obat</button>
+                <button onclick="" class="w3-button w3-right w3-green">Beli Obat <i class="fa-solid fa-prescription-bottle-medical"></i></button>
+            </div>
+
+            <div id="id01" class="w3-modal">
+                <div class="w3-modal-content w3-animate-zoom w3-card-4">
+                <header class="w3-container"> 
+                    <span onclick="$('#id01').hide()" 
+                    class="w3-button w3-display-topright">&times;</span>
+                    <h2>Tambah List Obat</h2>
+                </header>
+                <div class="w3-container">
+                    <div class="w3-panel w3-pale-green">
+                        <p>Tambah list obat baru dengan mengisi formulir berikut!</p>
+                    </div>
+                    <form action="/" method="post" class="w3-panel">
+                    <select class="w3-select w3-margin-bottom" name="pabrik">
+                        <option value="" disabled>Pilih Pabrik Farmasi</option>
+                        <option value="1" selected>PT 1</option>
+                        <option value="2">PT 2</option>
+                        <option value="3">PT 3</option>
+                    </select>
+                    <select class="w3-select w3-margin-bottom" name="gol">
+                        <option value="" disabled>Pilih Golongan Obat</option>
+                        <option value="1" selected>Gol 1</option>
+                        <option value="2">Gol 2</option>
+                        <option value="3">Gol 3</option>
+                    </select>
+                    <select class="w3-select w3-margin-bottom" name="satuan">
+                        <option value="" disabled>Pilih Satuan Obat</option>
+                        <option value="1" selected>Satuan 1</option>
+                        <option value="2">Satuan 2</option>
+                        <option value="3">Satuan 3</option>
+                    </select>
+                    <select class="w3-select w3-margin-bottom" name="nama">
+                        <option value="" disabled>Pilih Obat</option>
+                        <option value="1" selected>Obat 1</option>
+                        <option value="2">Obat 2</option>
+                        <option value="3">Obat 3</option>
+                    </select>
+                    <label>Jumlah Beli</label>
+                    <input class="w3-input" type="number" value="1" name="jumlah">
+                    <button type="submit" class="w3-btn w3-margin-top w3-margin-bottom w3-green">Tambah Ke List</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- main site -->
+
+<script>
+    $(document).ready(function () {
+        $('#table-add').DataTable({
+            paging: false,
+            info: false
+        });
+    });
+</script>
+</body>
+</html>

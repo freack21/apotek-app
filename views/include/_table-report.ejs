@@ -1,0 +1,51 @@
+<div class="w3-modal-content w3-animate-zoom w3-card-4 w3-round-large">
+    <header class="w3-container"> 
+        <span onclick="$('#modal-report').hide()" 
+        class="w3-button w3-display-topright">&times;</span>
+        <h2>Laporan Pembelian Obat Bulanan</h2>
+    </header>
+    <div class="w3-container">
+        <table id="table-report" class="w3-table-all w3-hoverable w3-margin-bottom">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Tahun-Bulan</th>
+                    <th>Nilai Pembelian</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% reports.forEach(report => { %>
+                <td></td>
+                <td> <%= report.tanggal %> </td>
+                <td class="money"><%= report.pengeluaran %></td>
+            <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+$(document).ready(function () {
+    let t = $('#table-report').DataTable({
+        columnDefs: [
+            {
+                searchable: false,
+                orderable: false,
+                targets: [0],
+            },
+        ],
+        order: [[1, 'asc']],
+        paging: false,
+        info: false,
+        searching: false
+    });
+
+    t.on('order.dt search.dt', function () {
+        let i = 1;
+
+        t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
+            this.data(i++);
+        });
+    }).draw();
+});
+</script>

@@ -1,0 +1,81 @@
+<main id="site-main">
+    <div class="w3-container w3-margin">
+        <div class="w3-responsive">
+            <table id="table-stock" class="w3-table-all w3-margin-bottom display">
+                <thead>
+                    <tr class="w3-amber">
+                        <th>No.</th>
+                        <th>Kode</th>
+                        <th>Nama</th>
+                        <th>Gol.</th>
+                        <th>Jumlah</th>
+                        <th>Satuan</th>
+                        <th>Tanggal Kadaluarsa</th>
+                        <th>Pabrik</th>
+                        <th>Harga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%- include('include/_table-stock') %>
+                </tbody>
+            </table>
+        </div>
+
+        <button onclick="$('#modal-add').show()" class="w3-btn w3-green w3-round-medium w3-left">
+            <span><i class="fa-solid fa-add"></i> Tambah Stok Obat</span>
+        </button>
+        <button onclick="$('#modal-report').show()" class="w3-btn w3-green w3-round-medium w3-right">
+            <span>Laporan Bulanan <i class="fa-solid fa-file"></i></span>
+        </button>
+
+        <div id="modal-add" class="w3-modal">
+            <%- include('include/_form-add') %> 
+        </div>
+
+        <div id="modal-report" class="w3-modal">
+            <%- include('include/_table-report') %> 
+        </div>
+
+    </div>
+</main>
+
+<script>
+$(document).ready(function () {
+    let t = $('#table-stock').DataTable({
+        columnDefs: [
+            {
+                searchable: false,
+                orderable: false,
+                targets: [0],
+            },
+        ],
+        order: [[1, 'asc']],
+        paging: false,
+        info: false
+    });
+
+    t.on('order.dt search.dt', function () {
+        let i = 1;
+
+        t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
+            this.data(i++);
+        });
+    }).draw();
+
+    const formatter = new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+    });
+
+    let money = $('.money');
+    for(let i = 0; i < money.length; i++) {
+        let m = money[i].innerText;
+        money[i].innerText = formatter.format(m);
+    }
+    // $('.money').forEach(m => {
+    //     let money = $(this).text();
+    //     console.log(money);
+    //     $(this).text(formatter.format(money));
+    // });
+});
+</script>
